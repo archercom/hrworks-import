@@ -1,41 +1,81 @@
 <?php
+// /**
+//  * Implements hook_feeds_processor_targets_alter().
+//  */
+// function hrworks_import_feeds_processor_targets_alter(&$targets, $type, $bundle) {
+//   if ($type == 'node' && $bundle == 'hrworks_article') {
+//     // this is where we fill in the Publish Date stuffs
+//     $targets['published_at'] = array(
+//       'name' => t('Published At'),
+//       'description' => t('When the article was actually published, instead of created'),
+//       'callback' => 'hrworks_import_set_target',
+//     );
+//     // maybe try 'pubdate'?
+//     // $targets['pubdate'] = array(
+//     //   'name' => t('Published At'),
+//     //   'description' => t('When the article was actually published, instead of created'),
+//     //   'callback' => 'hrworks_import_set_target',
+//     // );
+//   }
+// }
+
+
+// /**
+//  * Mapping callback.
+//  */
+// function hrworks_import_set_target($source, $entity, $target, $value, $mapping) {
+
+//   // feeds_dbg('test');
+//   // feeds_dbg($value['0']);
+//   // $test = strtotime($value['0']);
+//   // feeds_dbg($test);
+//   feeds_dbg('----------------------------------------');
+//   $value = new FeedsDateTimeElement($value['0'], NULL);
+//   $value->buildDateField($entity, $target, 0, $mapping['language']);
+//   feeds_dbg('----------------------------------------');
+//   // // saves the value to the entity
+//   // $entity->{$target}[$entity->language][0]['value'] = $test;
+
+//   // // saves the text format? full html/filtered
+//   // if (isset($source->importer->processor->config['input_format'])) {
+//   //   $entity->{$target}[$entity->language][0]['format'] =
+//   //     $source->importer->processor->config['input_format'];
+//   // }
+// }
+
+
+
 /**
- * Implements hook_feeds_processor_targets_alter().
+ * Hook node insert. This will automagically set URL redirrects for a node
  */
-function hrworks_import_feeds_processor_targets_alter(&$targets, $type, $bundle) {
-  if ($type == 'node' && $bundle == 'hrworks_article') {
-    // this is where we fill in the Publish Date stuffs
-    $targets['published_at'] = array(
-      'name' => t('Published At'),
-      'description' => t('When the article was actually published, instead of created'),
-      'callback' => 'hrworks_import_set_target',
-    );
-    // maybe try 'pubdate'?
-    // $targets['pubdate'] = array(
-    //   'name' => t('Published At'),
-    //   'description' => t('When the article was actually published, instead of created'),
-    //   'callback' => 'hrworks_import_set_target',
-    // );
-  }
-}
+function hrworks_import_node_insert($node) {
+  if ($node->type == 'hrworks_article' && isset($node->field_old_url)) {
+    // Use Database API to retrieve current redirect sources.
+    $query = db_select('redirect', 'r');
+    $query->fields('r', array('source'));
+    $redirect_sources = $query->execute()->fetchCol();
 
+    // The old path
+    $url = $node->field_old_url['und'][0]['value'];
 
-/**
- * Mapping callback.
- */
-function hrworks_import_set_target($source, $entity, $target, $value, $mapping) {
+    // Check node id exists and there is no current redirect set for it
+    if (isset($node->nid) && (!in_array($url, $redirect_sources))){
+      $redirect = new stdClass();
 
-  feeds_dbg('test');
-  feeds_dbg($value);
-  $test = strtotime($value);
-  feeds_dbg($test);
+      module_invoke(
+        'redirect',
+        'object_prepare',
+        $redirect,
+        array(
+          'source' => $url,
+          'source_options' => array(),
+          'redirect' => 'node/' . $node->nid,
+          'redirect_options' => array(),
+          'language' => LANGUAGE_NONE,
+        )
+      );
 
-  // saves the value to the entity
-  $entity->{$target}[$entity->language][0]['value'] = $test;
-
-  // saves the text format? full html/filtered
-  if (isset($source->importer->processor->config['input_format'])) {
-    $entity->{$target}[$entity->language][0]['format'] =
-      $source->importer->processor->config['input_format'];
+      module_invoke('redirect', 'save', $redirect);
+    }
   }
 }

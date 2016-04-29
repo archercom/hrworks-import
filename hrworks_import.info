@@ -2,3 +2,4 @@ name = HRWorks Import
 description = Module to add URL redirrects and populate the Published At date
 core = 7.x
 dependencies[] = feeds
+dependencies[] = hrworks_articles
