@@ -1,0 +1,125 @@
+ {
+    ["url"]=> array(3) {
+        ["name"]=> string(3) "URL"
+        ["description"]=> string(103) "The external URL of the item. E. g. the feed item URL in the case of a syndication feed. May be unique."
+        ["optional_unique"]=> bool(true)
+    }
+    ["guid"]=> array(3) {
+        ["name"]=> string(4) "GUID"
+        ["description"]=> string(118) "The globally unique identifier of the item. E. g. the feed item GUID in the case of a syndication feed. May be unique."
+        ["optional_unique"]=> bool(true)
+    }
+    ["title"]=> array(3) {
+        ["name"]=> string(5) "Title"
+        ["description"]=> string(22) "The title of the node."
+        ["optional_unique"]=> bool(true)
+    }
+    ["nid"]=> array(3) {
+        ["name"]=> string(7) "Node ID"
+        ["description"]=> string(95) "The nid of the node. NOTE: use this feature with care, node ids are usually assigned by Drupal." ["optional_unique"]=> bool(true)
+    }
+    ["uid"]=> array(2) {
+        ["name"]=> string(7) "User ID"
+        ["description"]=> string(38) "The Drupal user ID of the node author."
+    }
+    ["user_name"]=> array(2) {
+        ["name"]=> string(8) "Username"
+        ["description"]=> string(39) "The Drupal username of the node author."
+    }
+    ["user_mail"]=> array(2) {
+        ["name"]=> string(10) "User email"
+        ["description"]=> string(37) "The email address of the node author."
+    }
+    ["status"]=> array(2) {
+        ["name"]=> string(16) "Published status"
+        ["description"]=> string(80) "Whether a node is published or not. 1 stands for published, 0 for not published."
+    }
+    ["created"]=> array(2) {
+        ["name"]=> string(14) "Published date"
+        ["description"]=> string(45) "The UNIX time when a node has been published."
+    }
+    ["changed"]=> array(2) {
+        ["name"]=> string(12) "Updated date"
+        ["description"]=> string(53) "The Unix timestamp when a node has been last updated."
+    }
+    ["promote"]=> array(2) {
+        ["name"]=> string(22) "Promoted to front page"
+        ["description"]=> string(94) "Boolean value, whether or not node is promoted to front page. (1 = promoted, 0 = not promoted)"
+    }
+    ["sticky"]=> array(2) {
+        ["name"]=> string(6) "Sticky"
+        ["description"]=> string(90) "Boolean value, whether or not node is sticky at top of lists. (1 = sticky, 0 = not sticky)"
+    }
+    ["comment"]=> array(2) {
+        ["name"]=> string(8) "Comments"
+        ["description"]=> string(81) "Whether comments are allowed on this node: 0 = no, 1 = read only, 2 = read/write."
+    }
+    ["field_hrworks_article_type"]=> array(3) {
+        ["name"]=> string(12) "Article Type"
+        ["callback"]=> string(21) "text_feeds_set_target"
+        ["description"]=> string(37) "The Article Type field of the entity."
+    }
+    ["field_hrworks_article_author"]=> array(3) {
+        ["name"]=> string(14) "Article Author"
+        ["callback"]=> string(21) "text_feeds_set_target"
+        ["description"]=> string(39) "The Article Author field of the entity."
+    }
+    ["field_hrworks_appears_in_rbj"]=> array(3) {
+        ["name"]=> string(14) "Appears In RBJ"
+        ["callback"]=> string(29) "list_feeds_set_boolean_target"
+        ["description"]=> string(39) "The Appears In RBJ field of the entity."
+    }
+    ["path_alias"]=> array(5) {
+        ["name"]=> string(10) "Path alias"
+        ["description"]=> string(27) "URL path alias of the node."
+        ["callback"]=> string(21) "path_feeds_set_target"
+        ["summary_callbacks"]=> array(1) {
+            [0]=> string(27) "path_feeds_summary_callback"
+        }
+        ["form_callbacks"]=> array(1) {
+            [0]=> string(24) "path_feeds_form_callback"
+        }
+    }
+    ["body"]=> array(5) {
+        ["name"]=> string(4) "Body"
+        ["callback"]=> string(21) "text_feeds_set_target"
+        ["description"]=> string(29) "The Body field of the entity."
+        ["summary_callbacks"]=> array(1) {
+            [0]=> string(27) "text_feeds_summary_callback"
+        }
+        ["form_callbacks"]=> array(1) {
+            [0]=> string(24) "text_feeds_form_callback"
+        }
+    }
+    ["body:summary"]=> array(4) {
+        ["name"]=> string(13) "Body: Summary"
+        ["callback"]=> string(21) "text_feeds_set_target"
+        ["description"]=> string(29) "The Body field of the entity."
+        ["real_target"]=> string(4) "body"
+    }
+    ["field_related_hrworks_solution"]=> array(3) {
+        ["name"]=> string(52) "Related HR Solution (Entity reference by Feeds GUID)"
+        ["callback"]=> string(32) "entityreference_feeds_set_target"
+        ["description"]=> string(95) "The field instance Related HR Solution of field_related_hrworks_solution matched by Feeds GUID."
+    }
+    ["field_related_hrworks_solution:url"]=> array(4) {
+        ["name"]=> string(51) "Related HR Solution (Entity reference by Feeds URL)"
+        ["callback"]=> string(32) "entityreference_feeds_set_target"
+        ["description"]=> string(94) "The field instance Related HR Solution of field_related_hrworks_solution matched by Feeds URL."
+        ["real_target"]=> string(30) "field_related_hrworks_solution"
+    }
+    ["field_related_hrworks_solution:etid"]=> array(4) {
+        ["name"]=> string(51) "Related HR Solution (Entity reference by Entity ID)"
+        ["callback"]=> string(32) "entityreference_feeds_set_target"
+        ["description"]=> string(94) "The field instance Related HR Solution of field_related_hrworks_solution matched by Entity ID."
+        ["real_target"]=> string(30) "field_related_hrworks_solution"
+    }
+    ["field_related_hrworks_solution:label"]=> array(4) {
+        ["name"]=> string(54) "Related HR Solution (Entity reference by Entity label)"
+        ["callback"]=> string(32) "entityreference_feeds_set_target"
+        ["description"]=> string(97) "The field instance Related HR Solution of field_related_hrworks_solution matched by Entity label."
+        ["real_target"]=> string(30) "field_related_hrworks_solution"
+    }
+}
+string(15) "hrworks_article"
+{"status":true,"percentage":"100","message":""}
