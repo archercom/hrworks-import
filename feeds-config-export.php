@@ -79,14 +79,6 @@ $feeds_importer->config = array(
           'debug' => 0,
           'weight' => '7',
         ),
-        'published_time' => array(
-          'name' => 'published time',
-          'value' => 'articleMeta/publishedTime',
-          'raw' => 0,
-          'inner' => 0,
-          'debug' => 0,
-          'weight' => '8',
-        ),
         'og_url' => array(
           'name' => 'OG Url',
           'value' => 'articleMeta/ogURL',
@@ -162,6 +154,11 @@ $feeds_importer->config = array(
           'target' => 'field_old_url',
           'unique' => FALSE,
           'language' => 'und',
+        ),
+        7 => array(
+          'source' => 'published_date',
+          'target' => 'published_at',
+          'unique' => FALSE,
         ),
       ),
       'insert_new' => '1',
